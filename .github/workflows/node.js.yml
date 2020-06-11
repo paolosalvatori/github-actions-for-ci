@@ -19,6 +19,7 @@ jobs:
           path: public/
 
   test:
+    needs: [build]
     runs-on: ubuntu-latest
 
     strategy:
@@ -28,6 +29,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/download-artifact@master
+      with: 
+        name: webpack artifacts
+        path: public
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
